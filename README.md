@@ -23,10 +23,10 @@ depmod -a
 nvidia-modprobe
 
 ## Modify the following variables to suit your environment
-WIN="2b6976dd-8620-49de-8d8d-ae9ba47a50db"
-UBU="5fd6286d-06ac-4406-8b06-f26511c260d3"
-NVPCI="0000:03:00.0"
-MDEVLIST="nvidia-65"
+WIN="d4b5b95f-806f-4580-a566-40cc9808ad55"
+WIN2="caddd63b-498e-4da7-a311-b6b05a00870c"
+NVPCI="0000:84:00.0"
+MDEVLIST="nvidia-18"
 
 if [ ! -d /boot/config/nvidia-vgpu ]; then
     mkdir -p /boot/config/nvidia-vgpu
@@ -43,7 +43,7 @@ else
   ln -sf /boot/config/nvidia-vgpu/profile_override.toml /etc/vgpu_unlock/profile_override.toml
 fi
 
-echo "unlock = false" > /etc/vgpu_unlock/config.toml
+echo "unlock = true" > /etc/vgpu_unlock/config.toml
 
 env LD_PRELOAD=/usr/local/lib/libvgpu_unlock_rs.so >/dev/null
 
@@ -58,7 +58,7 @@ LD_PRELOAD=/usr/local/lib/libvgpu_unlock_rs.so nvidia-vgpu-mgr
 
 sleep 3
 
-arr=( "${WIN}" "${UBU}" )
+arr=( "${WIN}" "${WIN2}" )
 
 for os in "${arr[@]}"; do
     if [[ "$(mdevctl list)" == *"$os"* ]]; then
@@ -70,8 +70,8 @@ done
 
 for os in "${arr[@]}"; do
     echo " [i] Defining and running $os..."
-    mdevctl define -u "$os" -p "$NVPCI" --type "$MDEVLIST"
-    mdevctl start -u "$os"
+     mdevctl define -a -u "$os" -p "$NVPCI" --type "$MDEVLIST"
+     mdevctl start -u "$os"
 done
 
 echo " [i] Currently defined mdev devices:"

@@ -1,8 +1,8 @@
 <?xml version='1.0' standalone='yes'?>
 <!DOCTYPE PLUGIN [
   <!ENTITY name      "nvidia-vgpu-driver">
-  <!ENTITY author    "stl88083365">
-  <!ENTITY version   "2023.06.28">
+  <!ENTITY author    "loadedlouie">
+  <!ENTITY version   "2025.01.12">
   <!ENTITY launch    "Settings/nvidia-vgpu-driver">
   <!ENTITY gitURL    "https://github.com/&author;/unraid-&name;/raw/master">
   <!ENTITY pluginURL "&gitURL;/&name;.plg">
